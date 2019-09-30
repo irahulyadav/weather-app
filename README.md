@@ -3,7 +3,7 @@ A simple demo project for Weather-App based on <b>MVVM clean architecture</b>.
 
 <img src="https://github.com/irahulyadav/weather-app/blob/master/device-2019-09-30-213105.png" width="200" style="max-width:100%;"> </br></br>
 
-## [Download APK](https://github.com/irahulyadav/weather-app/raw/master/Weather-1.0-debug.apk)
+## [Download APK](https://github.com/irahulyadav/weather-app/raw/master/app/release/Weather-1.0-release.apk)
 #### App Features
 * Users can see current place weather detail.
 
@@ -37,4 +37,4 @@ Based on mvvm architecture and repository pattern.
 * [Okhhtp3](https://github.com/square/okhttp) for implementing interceptor, logging and mocking web server.
 * [Robolectric](http://robolectric.org/) for implementing unit test case
 
-## [Download APK](https://github.com/irahulyadav/weather-app/raw/master/Weather-1.0-debug.apk)
+## [Download APK](https://github.com/irahulyadav/weather-app/raw/master/app/release/Weather-1.0-release.apk)
