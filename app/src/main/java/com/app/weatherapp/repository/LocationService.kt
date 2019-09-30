@@ -8,7 +8,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.app.weatherapp.api.isNetworkAvailable
+import com.app.weatherapp.isNetworkAvailable
 import com.google.android.gms.location.LocationServices
 import javax.inject.Inject
 

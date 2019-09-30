@@ -2,6 +2,9 @@ package com.app.weatherapp
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import com.app.weatherapp.di.AppComponent
 import com.app.weatherapp.di.AppModule
 import com.app.weatherapp.di.DaggerAppComponent
@@ -30,4 +33,13 @@ fun Activity.getWeatherApplication(): WeatherApplication {
 
 fun Activity.getAppComponent(): AppComponent {
     return application.getAppComponent()
+}
+
+fun Context.isNetworkAvailable(): Boolean {
+    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val capabilities =
+        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+    return capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true || capabilities?.hasTransport(
+        NetworkCapabilities.TRANSPORT_CELLULAR
+    ) == true
 }
