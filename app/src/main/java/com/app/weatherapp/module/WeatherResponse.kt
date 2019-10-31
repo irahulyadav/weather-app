@@ -7,7 +7,8 @@ data class WeatherResponse(
     val latitude: Double,
     val longitude: Double,
     val timezone: String,
-    val currently: WeatherInfo
+    val currently: WeatherInfo,
+    val hourly: HourlyInfo
 ) {
 
     companion object {

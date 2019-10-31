@@ -18,11 +18,14 @@
             type="String" />
     </data>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             tools:context="com.teamtreehouse.stormy.MainActivity">
 
@@ -152,10 +155,10 @@
                 android:text="@{weather.summary, default = `Stormy with a chance of meatballs`}"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                tools:text="Stormy with a chance of meatballs"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/precipValue" />
+                app:layout_constraintTop_toBottomOf="@+id/precipValue"
+                tools:text="Stormy with a chance of meatballs" />
 
             <TextView
                 android:id="@+id/darkSkyAttribution"
@@ -170,5 +173,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/hourly_item_view"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="match_parent" />
 
+    </LinearLayout>
 </layout>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.weatherapp.adapter.HourlyAdapter
 import com.app.weatherapp.databinding.ActivityMainBinding
 import com.app.weatherapp.module.WeatherResponse
 import com.app.weatherapp.repository.LocationService
@@ -21,7 +22,6 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), LocationService.Listener {
 
-    private val formatter = SimpleDateFormat("h:mm a", Locale.ENGLISH)
 
 
     var requestCode: Int? = 0
@@ -33,15 +33,10 @@ class MainActivity : AppCompatActivity(), LocationService.Listener {
 
     lateinit var weatherInfoViewModel: WeatherInfoViewModel
 
-    var location: Location? = null
-        set(value) {
-            if (value != null) {
-                fetchWeather(value)
-            }
-            field = value
-        }
 
     lateinit var binding: ActivityMainBinding
+
+    val adapter = HourlyAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,17 +49,20 @@ class MainActivity : AppCompatActivity(), LocationService.Listener {
             this, Observer<WeatherResponse> {
                 this.weatherResponse = it
             })
+        binding.recycleView.adapter = adapter
     }
 
     var weatherResponse: WeatherResponse? = null
         set(value) {
             field = value
             if (value != null) {
+                val formatter = MainActivity.DateFormat
                 formatter.timeZone = TimeZone.getTimeZone(value.timezone)
                 binding.weather = value.currently
                 binding.time = formatter.format(Date(value.currently.time * 1000))
                 binding.location = value.timezone
                 binding.iconImageView.setImageResource(value.currently.iconId)
+                adapter.hourlyInfo = value.hourly.hourlyInfo
             }
         }
 
@@ -87,37 +85,6 @@ class MainActivity : AppCompatActivity(), LocationService.Listener {
 
     override fun locationNotFoundAlert() {
         //show dialog to user if location not found TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
-//    override fun onStart() {
-//        super.onStart()
-//        mGoogleApiClient?.connect()
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        mGoogleApiClient?.disconnect()
-//    }
-
-    fun fetchWeather(location: Location) {
-//        (application as WeatherApplication)
-//            .retrofitModule
-//            .weatherApiService
-//            .fetchWeather(BuildConfig.API_KEY, location.latitude, location.longitude)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(object : DisposableSingleObserver<WeatherResponse>() {
-//                override fun onSuccess(t: WeatherResponse) {
-//                    this@MainActivity.weatherResponse = t
-//                }
-//
-//                override fun onError(e: Throwable) {
-//                    e.printStackTrace()
-//                }
-//            })
-
-
     }
 
 
@@ -164,5 +131,9 @@ class MainActivity : AppCompatActivity(), LocationService.Listener {
             }
             locationService.findCurrentLocation(this, this)
         }
+    }
+
+    companion object{
+        val DateFormat = SimpleDateFormat("h:mm a", Locale.ENGLISH)
     }
 }
